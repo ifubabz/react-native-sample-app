@@ -1,20 +1,21 @@
-import { createSwitchNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation';
 import Login from 'screens/auth/Login';
-import WelcomeNavigator from 'screens/welcome/WelcomeNavigator';
+import Terms from 'screens/auth/notice/Terms';
+import Privacy from 'screens/auth/notice/Privacy';
 
-const AuthNavigator = createSwitchNavigator({
+const AuthNavigator = createStackNavigator({
     login: {
         screen: Login,
         navigationOptions: () => ({
             header: null
         })
     },
-    welcomeNavi: {
-        screen: WelcomeNavigator,
-        navigationOptions: () => ({
-            header: null
-        })
-    }
+    terms: {
+        screen: Terms,
+    },
+    privacy: {
+        screen: Privacy, 
+    },
 }, {
     initialRouteName: 'login'
 });
