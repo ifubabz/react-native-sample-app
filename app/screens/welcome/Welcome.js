@@ -11,7 +11,7 @@ export default class Welcome extends Component {
   render() {
     return (
       <View style={styles.wrapper}>
-        <Text style={styles.title}>With Baby Welcome</Text>         
+        <Text style={styles.title}>Welcome</Text>         
       </View>
     );
   }

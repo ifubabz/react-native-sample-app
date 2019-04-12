@@ -11,7 +11,7 @@ export default class Login extends Component {
   render() {
     return (
       <View style={styles.wrapper}>
-        <Text style={styles.title}>With Baby Login</Text>         
+        <Text style={styles.title}>Login</Text>         
       </View>
     );
   }

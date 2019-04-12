@@ -11,10 +11,10 @@ export default class Loading extends Component {
       return (
         <View style={styles.wrapper}>
           <View style={styles.titleWrapper}>
-            <Text style={styles.title}>With Baby</Text>
+            <Text style={styles.title}>React Native Sample</Text>
           </View>
           <View>
-            <Text style={styles.subtitle}>Powered by Fubabz</Text>
+            <Text style={styles.subtitle}>Powered by Company</Text>
           </View>
         </View>
       );
