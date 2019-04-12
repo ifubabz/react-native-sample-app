@@ -1,14 +1,16 @@
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
-import IntroNavigator from 'screens/intro/IntroNavigator';
+import Loading from 'screens/Loading';
+import AuthNavigator from 'screens/auth/AuthNavigator';
 import MainNavigator from 'screens/main/MainNavigator';
 
 const AppNavigator = createSwitchNavigator(
   {
-      intro: IntroNavigator,
+      loading: Loading,
+      auth: AuthNavigator,
       main: MainNavigator,
   },
   {
-      initialRouteName: 'intro'
+      initialRouteName: 'loading'
   }
 );
 
