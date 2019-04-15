@@ -3,7 +3,7 @@ import { Text, View, StyleSheet } from 'react-native';
 
 export default class Terms extends Component {
   static navigationOptions = {
-    title: '이용약관',
+    title: '이용 약관',
     headerStyle: {
       backgroundColor: '#3367d6',
     },
