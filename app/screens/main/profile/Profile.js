@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 
-export default class Home extends Component {
+export default class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -11,7 +11,7 @@ export default class Home extends Component {
   render() {
     return (
       <View style={styles.wrapper}>
-        <Text style={styles.title}>Home</Text>         
+        <Text style={styles.title}>Profile</Text>         
       </View>
     );
   }

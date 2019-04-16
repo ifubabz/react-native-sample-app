@@ -31,7 +31,7 @@ export default class Login extends Component {
             buttonColor={'#ffe812'}
             titleColor={'#000000'}
             title={'Sign in with Kakao'}
-            onPress={() => alert('Kakao')}
+            onPress={() => this.props.navigation.navigate('main')}
           />
         </View>
         <View style={styles.footerWrapper}>
