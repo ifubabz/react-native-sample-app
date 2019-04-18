@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
+import { Linking, WebBrowser, AuthSession } from 'expo';
 import LoginButton from 'components/LoginButton';
 import DivideLine from 'components/DivideLine';
 
@@ -7,9 +8,55 @@ export default class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loading: true
+      loading: true,
+      user: undefined,
     }
   }
+
+  _handleRedirect = event => {
+    console.log('_handleRedirect');
+    WebBrowser.dismissBrowser();
+    let data = Linking.parse(event.url);
+    this.setState({ user: data });
+  };
+
+  _addLinkingListener = () => {
+    console.log('_addLinkingListener');
+    Linking.addEventListener('url', this._handleRedirect);
+  };
+
+  _removeLinkingListener = () => {
+    console.log('_removeLinkingListener');
+    Linking.removeEventListener('url', this._handleRedirect);
+  };
+
+  loginWithFacebook = async () =>{
+    // let url = 'https://192.168.40.17:9090/login/facebook';
+    // let result = await WebBrowser.openBrowserAsync(url);
+
+    // let redirectUrl = AuthSession.getRedirectUrl();
+    // console.log("redirectUrl:",redirectUrl);
+    // let result = await AuthSession.startAsync({
+    //   authUrl: url + `&redirect_uri=${encodeURIComponent(redirectUrl)}`,
+    // });
+    // console.log("login result:", result);
+    // this.setState({ user:result });
+
+      console.log('loginWithFacebook');
+      this._addLinkingListener();
+      let result = await WebBrowser.openAuthSessionAsync(`https://192.168.40.17:9090/oauth2/authorize/facebook?redirect_uri=exp://192.168.40.17:19000`, 'exp://192.168.40.17:19000');
+      this._removeLinkingListener();
+
+      // let redirectUrl = AuthSession.getRedirectUrl();
+      // console.log(redirectUrl)
+      // let result = await WebBrowser.openAuthSessionAsync('https://192.168.40.17:9090/login/facebook', 'https://192.168.40.17:9090/');
+      console.log(result);
+      this.setState({ result });
+
+
+
+  };
+
   render() {
     return (
       <View style={styles.wrapper}>
@@ -25,7 +72,7 @@ export default class Login extends Component {
           <LoginButton
             buttonColor={'#3b5998'}
             title={'Sign in with Facebook'}
-            onPress={() => alert('Facebook')}
+            onPress={() => this.loginWithFacebook()}
           />
           <LoginButton
             buttonColor={'#ffe812'}
