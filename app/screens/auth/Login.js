@@ -43,18 +43,13 @@ export default class Login extends Component {
     // this.setState({ user:result });
 
       console.log('loginWithFacebook');
-      this._addLinkingListener();
-      let result = await WebBrowser.openAuthSessionAsync(`https://192.168.40.17:9090/oauth2/authorize/facebook?redirect_uri=exp://192.168.40.17:19000`, 'exp://192.168.40.17:19000');
-      this._removeLinkingListener();
+      // this._addLinkingListener();
+      // let result = await WebBrowser.openAuthSessionAsync(`https://192.168.40.17:9090/oauth2/authorize/facebook?redirect_uri=exp://192.168.40.17:19000`);
+      // this._removeLinkingListener();
 
-      // let redirectUrl = AuthSession.getRedirectUrl();
-      // console.log(redirectUrl)
-      // let result = await WebBrowser.openAuthSessionAsync('https://192.168.40.17:9090/login/facebook', 'https://192.168.40.17:9090/');
+      let result = await WebBrowser.openAuthSessionAsync('https://192.168.40.17:9090/oauth2/authorize/facebook?redirect_uri=exp://192.168.40.17:19000');
       console.log(result);
       this.setState({ result });
-
-
-
   };
 
   render() {
