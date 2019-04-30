@@ -8,48 +8,42 @@ export default class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loading: true,
-      user: undefined,
+      loading: true
     }
   }
 
-  _handleRedirect = event => {
-    console.log('_handleRedirect');
-    WebBrowser.dismissBrowser();
-    let data = Linking.parse(event.url);
-    this.setState({ user: data });
-  };
-
-  _addLinkingListener = () => {
-    console.log('_addLinkingListener');
-    Linking.addEventListener('url', this._handleRedirect);
-  };
-
-  _removeLinkingListener = () => {
-    console.log('_removeLinkingListener');
-    Linking.removeEventListener('url', this._handleRedirect);
+  getUrlParameter(url, name) {
+    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    var results = regex.exec(url);
+    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
   };
 
   loginWithFacebook = async () =>{
-    // let url = 'https://192.168.40.17:9090/login/facebook';
-    // let result = await WebBrowser.openBrowserAsync(url);
-
-    // let redirectUrl = AuthSession.getRedirectUrl();
-    // console.log("redirectUrl:",redirectUrl);
-    // let result = await AuthSession.startAsync({
-    //   authUrl: url + `&redirect_uri=${encodeURIComponent(redirectUrl)}`,
-    // });
-    // console.log("login result:", result);
-    // this.setState({ user:result });
-
       console.log('loginWithFacebook');
-      // this._addLinkingListener();
-      // let result = await WebBrowser.openAuthSessionAsync(`https://192.168.40.17:9090/oauth2/authorize/facebook?redirect_uri=exp://192.168.40.17:19000`);
-      // this._removeLinkingListener();
-
-      let result = await WebBrowser.openAuthSessionAsync('https://192.168.40.17:9090/oauth2/authorize/facebook?redirect_uri=exp://192.168.40.17:19000');
-      console.log(result);
-      this.setState({ result });
+      let result = await WebBrowser.openAuthSessionAsync('https://192.168.40.17/login/oauth/facebook?redirect_uri=exp://192.168.40.17:19000');
+      console.log("result", result);
+      // this.setState({ result });
+      if(result.type == 'success'){
+        const token = this.getUrlParameter(result.url, 'token');
+        console.log("token::", token);
+        
+        fetch('https://192.168.40.17/user/me', {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          }
+        })
+        .then((response) => response.json())
+        .then((responseJson) => {
+          console.log("responseJson::", responseJson);
+        })
+        .catch((error) => {
+          console.log("ERROR::",error);
+        });
+      }
   };
 
   render() {
